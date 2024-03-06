@@ -14,7 +14,7 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user.id });
       }
-      throw new AuthenticationError('Login required');
+      throw AuthenticationError('Login required');
     },
   },
 
@@ -53,13 +53,13 @@ const resolvers = {
           { _id: context.user._id },
           {
             $addToSet: {
-              savedBooks: { description, bookId, title, authors, image, link },
+              savedBooks: { authors, description, bookId, image, link, title },
             },
           },
           {
             new: true,
             runValidators: true,
-          }
+          },
         );
       }
       throw AuthenticationError;
