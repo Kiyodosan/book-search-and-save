@@ -3,16 +3,16 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    users: async () => {
+/*     users: async () => {
       //// Can I populate books, even though 
       return User.find();
     },
     user: async (parent, { userId }) => {
-      return User.findOne({ userId });
-    },
+      return User.findOne({ _id: userId });
+    }, */
     self: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user.id });
+        return User.findOne({ _id: context.user._id });
       }
       throw AuthenticationError('Login required');
     },
@@ -40,14 +40,14 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    removeUser: async (parent, args, context) => {
+/*     removeUser: async (parent, args, context) => {
       if (context.user) {
         return User.findOneAndDelete({ _id: context.user._id });
       }
       throw AuthenticationError;
-    },
-    //// Should non-required arguments be added to the parameters list? Testing with a ... operator
-    addBook: async (parent, { description, bookId, title, ...args }, context) => {
+    }, */
+    //// Might not use link. If removing link, also remove from bookData / bookToSave in SearchBooks.jsx
+    addBook: async (parent, { authors, description, bookId, image, link, title }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
@@ -64,7 +64,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removeBook: async (parent, { bookId }, context) => {
+    deleteBook: async (parent, { bookId }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },

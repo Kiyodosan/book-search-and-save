@@ -16,8 +16,14 @@ const SavedBooks = () => {
   const [userData, setUserData] = useState({});
 
   const [ loading, selfError, data ] = useQuery(QUERY_SELF);
-  const [ deleteBook, { deleteError }] = useMutation(DELETE_BOOK);
-
+  const [ deleteBook, { deleteError }] = useMutation(
+    DELETE_BOOK, {
+      refetchQueries: [
+        QUERY_SELF,
+        'self'
+      ]
+    }
+  );
 
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
@@ -75,6 +81,8 @@ const SavedBooks = () => {
       const { data } = await deleteBook({
         variables: { bookId: bookId },
       });
+      
+      removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }

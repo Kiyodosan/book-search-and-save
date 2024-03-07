@@ -1,19 +1,19 @@
 const typeDefs = `
   type User {
-    _id: ID
-    username: String
-    email: String
-    password: String
-    savedBooks: [Book]!
+    _id: ID!
+    username: String!
+    email: String!
+    password: String!
+    savedBooks: [Book]
   }
 
   type Book {
     authors: String
-    description: String
-    bookId: String
+    description: String!
+    bookId: String!
     image: String
     link: String
-    title: String
+    title: String!
   }
 
   type Auth {
@@ -22,16 +22,7 @@ const typeDefs = `
   }
 
   type Query {
-    # Users
-    # //// Is the ! needed after the array?
-    # users: [User]!
-    # user(userId: ID!): User
     self: User
-    # //// Can we query for books, even though it isn't a model?
-    # Books
-    # //// Testing User as ref, since all books are queried per user
-    # books: User
-    # book(bookId: bookId!): User
   }
 
   type Mutation {
@@ -45,3 +36,16 @@ const typeDefs = `
 `;
 
 module.exports = typeDefs;
+
+/* type Query {
+  # Users
+  # //// Is the ! needed after the array?
+  # users: [User]!
+  # user(userId: ID!): User
+  self: User
+  # //// Can we query for books, even though it isn't a model?
+  # Books
+  # //// Testing User as ref, since all books are queried per user
+  # books: User
+  # book(bookId: bookId!): User
+} */

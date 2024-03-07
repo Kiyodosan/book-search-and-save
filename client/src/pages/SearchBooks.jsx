@@ -9,7 +9,7 @@ import {
 } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { saveBook, searchGoogleBooks } from '../utils/API';
+import { ADD_BOOK, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
@@ -50,6 +50,7 @@ const SearchBooks = () => {
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
         image: book.volumeInfo.imageLinks?.thumbnail || '',
+        link: book.volumeInfo.link || '',
       }));
 
       setSearchedBooks(bookData);
@@ -72,11 +73,22 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
+      const { data } = await ADD_BOOK({
+        variables: { 
+          bookId: bookToSave.bookId,
+          authors: bookToSave.volumeInfo.authors || ['No author to display'],
+          title: bookToSave.volumeInfo.title,
+          description: bookToSave.volumeInfo.description,
+          image: bookToSave.volumeInfo.imageLinks?.thumbnail || '',
+          link: bookToSave.volumeInfo.link || '',
+        },
+      });
+
+/*       const response = await saveBook(bookToSave, token);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
-      }
+      } */
 
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
