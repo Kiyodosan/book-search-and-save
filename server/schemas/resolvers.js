@@ -12,9 +12,9 @@ const resolvers = {
     }, */
     self: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id }).populate('savedBooks');
       }
-      throw AuthenticationError('Login required');
+      throw AuthenticationError;
     },
   },
 
