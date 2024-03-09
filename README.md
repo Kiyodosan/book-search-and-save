@@ -1,5 +1,5 @@
 
-# book-search-and-save
+# Book Search and Save
 
 ---
 
@@ -13,13 +13,13 @@
 
 ## Project Description
 
-Book Search and Save is a full-stack application that allows users to search for books and save them in a personal list to view collectively. Each search result contains the title, author(s), and a description of the book.
+Book Search and Save is a full-stack application that allows users to search for books and save them in a personal list to view collectively. Each search result contains the title, author(s), description, and link to Google Books.
 
 ## How to run this project
 
 Click on the following image to visit the deployed site:
 
-[![React Dev Portfolio - demo image](<client/src/assets/book search and save - demo.png>)](https://odo-react-portfolio.netlify.app)
+[![Book Search and Save - demo image](<client/src/assets/book search and save - demo.png>)](https://book-search-and-save.onrender.com)
 
 ## How to use this project
 
